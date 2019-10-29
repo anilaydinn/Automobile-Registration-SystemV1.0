@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+
 #define SIZE 15
 struct Automobile{
 	
@@ -13,6 +14,7 @@ struct Automobile{
 
 void deleteAutomobile(char plate[15]);
 void registerAutomobile(struct Automobile atmb);
+void showAutomobiles();
 
 int main(){
 	
@@ -25,6 +27,7 @@ int main(){
 		
 		printf("1.Register Automobile\n2.Update Automobile\n3.Show Automobile\n4.Delete Automobile\n5.Quit Program\n");
 		scanf("%d",&select);
+		printf("\n");
 		
 		switch(select){
 			
@@ -55,10 +58,14 @@ int main(){
 			
 			case 3:
 				
+				showAutomobiles();
+				printf("\n");
 				break;
 			
 			case 4:
-				/* Buraya show edilecek */
+				
+				showAutomobiles();
+				printf("\n");
 				
 				printf("Welcome Delete Page\n");
 				printf("Please enter plate which automobile want to delete:\n");
@@ -92,5 +99,43 @@ void registerAutomobile(struct Automobile atmb){
 
 void deleteAutomobile(char plate[15]){
 	
-	printf("%s\n",plate);
+	FILE * fPointer;
+	
+	fPointer = fopen("automobiles.txt","r");
+	
+	int ch = getc(fPointer);
+	
+	if(fPointer == NULL){
+		
+		printf("Could not open file.");
+		return;
+	}
+	
+	while(ch != EOF){
+		
+		putchar(ch);
+		ch = getc(fPointer);
+	}
+	return;
+}
+
+void showAutomobiles(){
+	
+	FILE * fPointer;
+	
+	fPointer = fopen("automobiles.txt","r");
+	
+	int ch = getc(fPointer);
+	
+	if(fPointer == NULL){
+		
+		printf("Could not open file.");
+		return;
+	}
+	
+	while(ch != EOF){
+		
+		putchar(ch);
+		ch = getc(fPointer);
+	}
 }
