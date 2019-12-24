@@ -25,7 +25,7 @@ int main(){
     char plt[15];
     int numberOfCar;
     
-    printf("***\tAutomobile Registration System V1.0\t***\n\n");
+    printf("*\tAutomobile Registration System V1.0\t***\n\n");
     
     while(i){
         
@@ -42,7 +42,7 @@ int main(){
                 
                 struct Automobile *a = (struct Automobile*)malloc(sizeof(struct Automobile)*numberOfCar);
                 
-                for(int i = 0; i < numberOfCar; i++){
+                for(i = 0; i < numberOfCar; i++){
                     
                     printf("Welcome Register Page\n");
                     printf("Please enter brand:\n");
@@ -126,28 +126,32 @@ void deleteAutomobile(char plate_id[15]){
     
     FILE *fAutomobiles = fopen("automobiles.txt","r");
     FILE *fTemp = fopen("temp.txt","w");
-    char line[1000];
+
     struct Automobile *b = (struct Automobile*)malloc(sizeof(struct Automobile)* 1);
     
-    while (fgets(line, sizeof(line), fAutomobiles) != NULL) {
-        fread(b, sizeof(struct Automobile), 1, fAutomobiles);
+    while (!feof(fAutomobiles)) {
+        fscanf(fAutomobiles,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
         
         if(strcmp(b->plate, plate_id) == 0) {
             continue;
         } else {
-            fwrite(b, sizeof(struct Automobile), 1, fTemp);
+            fprintf(fTemp,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
         }
     }
-    
     fclose(fAutomobiles);
     fclose(fTemp);
+   
+   
+	fAutomobiles = fopen("automobiles.txt","w");
+    fTemp = fopen("temp.txt","r");
     
-    remove("automobiles.txt");
-    
-    rename("temp.txt", "automobiles.txt");
-    
-    return;
-}
+    while(!feof(fTemp)){
+    	fscanf(fTemp,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
+    	fprintf(fAutomobiles,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
+	}
+    fclose(fAutomobiles);
+    fclose(fTemp);
+	}
 
 void updateAutomobile(struct Automobile *automobile){
     
@@ -157,25 +161,31 @@ void updateAutomobile(struct Automobile *automobile){
     fclose(fTemp);
     fTemp = fopen("temp.txt", "a");
     
-    char line[1000];
+    
     struct Automobile *b = (struct Automobile*)malloc(sizeof(struct Automobile)* 1);
     
-    while (fgets(line, sizeof(line), fAutomobiles) != NULL) {
-        fread(b, sizeof(struct Automobile), 1, fAutomobiles);
+    while (!feof(fAutomobiles)) {
+        fscanf(fAutomobiles,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
         
         if(strcmp(b->plate, automobile->plate) == 0) {
-            fwrite(automobile, sizeof(automobile), 1, fTemp);
+            fprintf(fTemp,"%s %s %s %s %s %s\n",automobile -> brand,automobile -> model,automobile -> color,automobile -> product_date,automobile -> fuel_type,automobile -> plate);
         } else {
-            fwrite(b, sizeof(struct Automobile), 1, fTemp);
+            fprintf(fTemp,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
         }
     }
     
     fclose(fAutomobiles);
     fclose(fTemp);
+ 
+	fAutomobiles = fopen("automobiles.txt","w");
+    fTemp = fopen("temp.txt","r");
     
-    remove("automobiles.txt");
-    
-    rename("temp.txt", "automobiles.txt");
+    while(!feof(fTemp)){
+    	fscanf(fTemp,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
+    	fprintf(fAutomobiles,"%s %s %s %s %s %s\n",b -> brand,b -> model,b -> color,b -> product_date,b -> fuel_type,b -> plate);
+	}
+    fclose(fAutomobiles);
+    fclose(fTemp);
     
     return;
 }
