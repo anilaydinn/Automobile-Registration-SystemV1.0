@@ -86,7 +86,7 @@ int main(){
                 break;
                 
             case 2:
-                printf("Welcome Delete Page\n");
+                printf("Welcome Update Page\n");
                 struct Automobile *b = malloc(sizeof(struct Automobile));
                 printf("Please enter plate which automobile want to update:\n");
                 scanf("%s", b->plate);
