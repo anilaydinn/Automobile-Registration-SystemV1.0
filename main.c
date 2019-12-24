@@ -24,7 +24,26 @@ int main(){
     int i = 1;
     char plt[15];
     int numberOfCar;
+    char username[15];
+    char password[15];
     
+    
+    while(1){
+    printf("Username:\n");
+    scanf("%s",username);
+    printf("Password:\n");
+    scanf("%s",password);
+    
+    
+    
+    if(strcmp(username,"admin") == 0 && strcmp(password,"admin") == 0){
+		
+		break;
+	}
+	else{
+		printf("Please input correct username and password!\n\n");
+	}
+}
     printf("*\tAutomobile Registration System V1.0\t***\n\n");
     
     while(i){
@@ -105,9 +124,11 @@ int main(){
                 break;
         }
     }
-    
+
+
     return 0;
 }
+
 
 void registerAutomobile(struct Automobile *a){
     
